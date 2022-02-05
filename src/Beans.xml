@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--Annotation based configuration-->
+    <context:annotation-config/>
+
+    <bean id="messageReader" class="com.training.MessageReader" init-method="initialize">
+        <property name="message" value="This is the first Message... :)"/>
+    </bean>
+
+    <bean id="prototypeScopeTester" class="com.training.PrototypeScopeTester" scope="prototype" init-method="init"/>
+
+    <bean id="customBeanPostProcessor" class="com.training.CustomBeanPostProcessor"/>
+
+    <bean id="beanDefinitionInheritanceParent" class="com.training.BeanDefinitionInheritanceParent">
+        <property name="beanName" value="bean name"/>
+        <property name="supportInheritance" value="false"/>
+    </bean>
+
+    <bean id="beanDefinitionInheritanceChild" class="com.training.BeanDefinitionInheritanceChild"
+          parent="beanDefinitionInheritanceParent">
+        <property name="beanName" value="inherited property from parent bean"/>
+        <property name="supportInheritance" value="true"/>
+        <property name="hasParent" value="true"/>
+    </bean>
+
+    <bean id="dependencyInjectionTester" class="com.training.DependencyInjectionTester">
+        <constructor-arg ref="messageReader"/>
+    </bean>
+
+    <bean id="tester" class="com.training.Tester"/>
+    <bean id="annotationTester" class="com.training.AnnotationTester"/>
+</beans>
